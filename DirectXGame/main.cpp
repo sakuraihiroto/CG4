@@ -6,7 +6,7 @@
 #include "ParticleManager.h"
 #include "fbxsdk.h"
 
-// Windowsアプリでのエントリーポイント(main関数)
+// Windowsアプリでのエントリーポイント(main関数
 int WINAPI WinMain(HINSTANCE,HINSTANCE,LPSTR,int)
 {
 	FbxManager* fbxmanager = FbxManager::Create();
