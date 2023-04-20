@@ -4,10 +4,12 @@
 #include "GameScene.h"
 #include "LightGroup.h"
 #include "ParticleManager.h"
+#include "fbxsdk.h"
 
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(HINSTANCE,HINSTANCE,LPSTR,int)
 {
+	FbxManager* fbxmanager = FbxManager::Create();
 	// 汎用機能
 	WinApp* win = nullptr;
 	DirectXCommon* dxCommon = nullptr;
