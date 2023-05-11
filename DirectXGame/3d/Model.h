@@ -61,7 +61,7 @@ private:
 
 private: //エイリアンス
 
-	template<class  T>using Comptr = Microsoft::WRL::ComPtr<T>;
+	template<class  T>using ComPtr = Microsoft::WRL::ComPtr<T>;
 	//DirectX::を省略
 	using XMFLOAT2 = DirectX::XMFLOAT2;
 	using XMFLOAT3 = DirectX::XMFLOAT3;
@@ -73,7 +73,28 @@ private: //エイリアンス
 	using string = std::string;
 	template<class T>using vector = std::vector<T>;
 	
+private:
 
-	
+	//頂点バッファ
+	ComPtr<ID3D12Resource> vertBuff;
+	//インディックスバッファ
+	ComPtr<ID3D12Resource> indexBuff;
+	//テクスチャバッファ
+	ComPtr<ID3D12Resource> texbuff;
+	//頂点バッファ
+	D3D12_VERTEX_BUFFER_VIEW vbView = {};
+	//インディックスバッファビュー
+	D3D12_INDEX_BUFFER_VIEW ibView = {};
+	//SRV用デスクリプタヒープ
+	ComPtr<ID3D12DescriptorHeap> descHeapSRV;
+
+public:
+
+	//バッファ生成
+	void CreateBuffers(ID3D12Device* device);
+	//描画
+	void Draw(ID3D12GraphicsCommandList* cmdlist);
+	//モデルの変形行列取得
+	const XMMATRIX& GetModelTransform() { return meshNode->globalTransform; }
 
 };
