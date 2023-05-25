@@ -61,6 +61,8 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input, Audio * audio)
 
 	model1 = FbxLoader::GetInstance()->LoadModelFromFile("cube");
 
+	model1 = FbxLoader::GetInstance()->LoadModelFromFile("boneTest");
+
 	//デバイスをセット
 	Object3d::SetDevice(dxCommon->GetDevice());
 	//カメラをセット

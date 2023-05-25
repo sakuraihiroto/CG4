@@ -7,6 +7,7 @@
 #include<wrl.h>
 #include<d3d12.h>
 #include<d3dx12.h>
+#include<fbxsdk.h>
 
 struct Node
 {
@@ -31,14 +32,38 @@ class Model
 public:
 	//フレンドクラス
 	friend class FbxLoader;
+
+	//ボーン構造体(内部クラス)
+	struct Bone
+	{
+		//名前
+		std::string name;
+		//初期姿勢の逆行列
+		DirectX::XMMATRIX invInitialPose;
+		//クラスター(FBX側のボーン情報)
+		FbxCluster* fbxCluster;
+		//コンストラクタ
+		Bone(const std::string& name) {
+			this->name = name;
+		}
+	};
+
+public://定数
+	//ボーンインデックスの最大数
+	static const int MAX_BONE_INDICES = 4;
+
+
 public://サブクラス
 	//頂点データ構造体
-	struct VertexPosNormalUv
+	struct VertexPosNormalUvSkin
 	{
 		DirectX::XMFLOAT3 pos;//xyz座標
 		DirectX::XMFLOAT3 normal;//法線ベクトル
 		DirectX::XMFLOAT2 uv;//uv座標
+		UINT boneIndex[MAX_BONE_INDICES]; //ボーン 番号
+		float boneWeight[MAX_BONE_INDICES]; //ボーン 重み
 	};
+
 private:
 	//モデル名
 	std::string name;
@@ -47,7 +72,7 @@ private:
 	//メッシュを持つノード
 	Node* meshNode = nullptr;
 	//頂点データ配列
-	std::vector<VertexPosNormalUv>vertices;
+	std::vector<VertexPosNormalUvSkin>vertices;
 	//頂点インデックス配列
 	std::vector<unsigned short>indices;
 	//アンビエント係数
@@ -58,6 +83,10 @@ private:
 	DirectX::TexMetadata metadata = {};
 	//スクラッチイメージ
 	DirectX::ScratchImage scratchImg = {};
+	//ボーン配列
+	std::vector<Bone> bones;
+	//FBXシーン
+	FbxScene* fbxScene = nullptr;
 
 private: //エイリアンス
 
@@ -96,5 +125,12 @@ public:
 	void Draw(ID3D12GraphicsCommandList* cmdlist);
 	//モデルの変形行列取得
 	const XMMATRIX& GetModelTransform() { return meshNode->globalTransform; }
+	//getter
+	std::vector<Bone>& GetBones() { return bones; }
+
+	FbxScene* GetFbxScene() { return fbxScene; }
+
+	//デストラクタ
+	~Model();
 
 };
