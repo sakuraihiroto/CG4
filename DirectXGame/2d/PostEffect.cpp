@@ -117,7 +117,7 @@ void PostEffect::Draw(ID3D12GraphicsCommandList* cmdList)
 	// 定数バッファビューをセット
 	cmdList->SetGraphicsRootConstantBufferView(0, this->constBuff->GetGPUVirtualAddress());
 	// シェーダリソースビューをセット
-	cmdList->SetGraphicsRootDescriptorTable(1,descHeapSRV->GetGPUDescriptorHandleForHeapStart());
+	cmdList->SetGraphicsRootDescriptorTable(1,descHeapSRV->GetCPUDescriptorHandleForHeapStart());
 	// 描画コマンド
 	cmdList->DrawInstanced(4, 1, 0, 0);
 }
