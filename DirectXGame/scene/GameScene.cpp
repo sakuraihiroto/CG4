@@ -72,8 +72,8 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input, Audio * audio)
 	Object3d::CreateGraphicsPipeline();
 
 	// カメラ注視点をセット
-	camera->SetTarget({0, 20, 0});
-	camera->SetDistance(100.0f);
+	camera->SetTarget({0, 2.5f, 0});
+	camera->SetDistance(8.0f);
 
 	//3Dオブジェクト生成とモデルのセット
 	object1 = new Object3d;
