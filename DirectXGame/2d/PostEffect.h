@@ -10,6 +10,10 @@ public:
 
     void Initialize();
 
+    void PreDrawScene(ID3D12GraphicsCommandList* cmdList);
+
+    void PostDrawScene(ID3D12GraphicsCommandList* cmdList);
+
     void Draw(ID3D12GraphicsCommandList* cmdList);
 
 private: //メンバ変数
@@ -18,8 +22,16 @@ private: //メンバ変数
     ComPtr<ID3D12Resource> texBuff;
     //SRV用デスクリプタヒープ
     ComPtr<ID3D12DescriptorHeap> descHeapSRV;
+    //深度バッファ
+    ComPtr<ID3D12Resource> depthBuff;
+    //RTV用デスクリプタヒープ
+    ComPtr<ID3D12DescriptorHeap> descHeapRTV;
+    //DSV用デスクリプタヒープ
+    ComPtr<ID3D12DescriptorHeap> descHeapDSV;
 
+private: //静的メンバ変数
 
+    static const float clearColor[4];
 
 };
 
