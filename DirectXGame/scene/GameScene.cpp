@@ -59,7 +59,7 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input, Audio * audio)
 	// ライト生成
 	lightGroup = LightGroup::Create();
 
-	model1 = FbxLoader::GetInstance()->LoadModelFromFile("cube");
+	/*model1 = FbxLoader::GetInstance()->LoadModelFromFile("cube");*/
 
 	model1 = FbxLoader::GetInstance()->LoadModelFromFile("boneTest");
 
